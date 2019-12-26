@@ -1,6 +1,6 @@
 package by.epam.gemstone.entity.type;
 
-public enum  PresiousType{
+public enum PreciousType {
     DIAMOND, RUBY, SAPPHIRE,  EMERALD
 
 }
