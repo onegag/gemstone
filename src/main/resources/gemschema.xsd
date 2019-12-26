@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.gemstone.epam.by/gems"
+        xmlns:tns="http://www.gemstone.epam.by/gems" elementFormDefault="qualified">
+    <element name="gems">
+        <complexType>
+            <sequence>
+                <element ref="tns:gem" minOccurs="2" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="gem" type="tns:Gem" abstract="true"/>
+    <element name="natural_gem" type="tns:Natural_gem" substitutionGroup="tns:gem" abstract="true"/>
+    <element name="organic_gem" type="tns:Organic_gem" substitutionGroup="tns:natural_gem"/>
+    <element name="precious_gem" type="tns:Precious_gem" substitutionGroup="tns:natural_gem"/>
+    <element name="semiprecious_gem" type="tns:Semiprecious_gem" substitutionGroup="tns:natural_gem"/>
+    <element name="synthetic_gem" type="tns:Synthetic_gem" substitutionGroup="tns:gem"/>
+
+
+    <complexType name="Gem">
+        <sequence>
+            <element name="color" type="tns:GemColor"/>
+            <element name="hardnessPercent" type="int" />
+            <element name="facetsQuantity" type="int" />
+            <element name="weightCarat"  type="double" />
+            <element name="rarity"  type="tns:Rarity"/>
+        </sequence>
+<!--stopped here-->
+    </complexType>
+    <simpleType name="ID">
+        <restriction base="ID">
+            <pattern value="([a-zA-Z])[a-zA-Z0-9]{7,19}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="Soil">
+        <restriction base="string">
+            <enumeration value="podzolic"/>
+            <enumeration value="ground"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Color">
+        <restriction base="string">
+            <enumeration value="white"/>
+            <enumeration value="red"/>
+            <enumeration value="yellow"/>
+            <enumeration value="pink"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="Multiplying">
+        <restriction base="string">
+            <enumeration value="leaves"/>
+            <enumeration value="cuttage"/>
+            <enumeration value="seeds"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Rose">
+        <complexContent>
+            <extension base="tns:Flower">
+                <sequence>
+                    <element name="blossom_time" type="string"/>
+                    <element name="petal_quantity" type="int" />
+                    <element name="bud_type" type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Hybrid_rose">
+        <complexContent>
+            <extension base="tns:Rose">
+                <sequence>
+                    <element name="year_of_selection" type="int"/>
+                </sequence>
+                <attribute name="hybrid_rose_subSort" default="large" type="tns:Hybrid_rose_Subsort">
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <simpleType name = "Hybrid_rose_Subsort">
+        <restriction base="string">
+            <enumeration value="large"/>
+            <enumeration value="cluster"/>
+            <enumeration value="hybrid"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Garden_rose">
+        <complexContent>
+            <extension base="tns:Rose">
+                <sequence>
+                    <element name="bush_type" type = "tns:Bush_type"/>
+                </sequence>
+                <attribute name="garden_rose_sort" default="banky" type="tns:Garden_rose_sort">
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <simpleType name ="Bush_type">
+        <restriction base="string">
+            <enumeration value="single"/>
+            <enumeration value="climbing"/>
+        </restriction>
+    </simpleType>
+    <simpleType name ="Garden_rose_sort">
+        <restriction base="string">
+            <enumeration value="rescht"/>
+            <enumeration value="fransis"/>
+            <enumeration value="banky"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Wild_rose">
+        <complexContent>
+            <extension base="tns:Rose">
+                <sequence>
+                    <element name="fruit_Form" type="string"/>
+                </sequence>
+                <attribute name="wild_rose_sort" default="rugosa" type="tns:Wild_rose_sort"/>
+            </extension>
+        </complexContent>
+    </complexType>
+    <simpleType name="Wild_rose_sort" >
+        <restriction base="string">
+            <enumeration value="rugosa"/>
+            <enumeration value="bracteata"/>
+            <enumeration value="foliolosa"/>
+            <enumeration value="woodsii"/>
+        </restriction>
+    </simpleType>
+</schema>
